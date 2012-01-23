@@ -28,7 +28,7 @@ INSTALLATION
 
 Package can be downloaded from the public git repo as::
 
-    $ git clone 
+    $ git clone git://github.com/flyingfrog81/fixreal.git
     $ python setup.py install
 
 or installed automatically via pypi::
