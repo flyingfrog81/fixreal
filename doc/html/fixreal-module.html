@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>fixreal</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://www.med.ira.inaf.it/~mbartolini/fixreal/index.html">fixreal</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;fixreal
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="fixreal-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module fixreal</h1><p class="nomargin-top"><span class="codelink"><a href="fixreal-pysrc.html">source&nbsp;code</a></span></p>
+<p>Functions to convert numbers between fixed and floating point 
+  representation as experienced by simulink users. Permits conversion of 8,
+  16 and 32 bit representation of signed and unsigned decimal numbers, with
+  or without binary point.</p>
+  <h1 class="heading">INSTALLATION</h1>
+    <p>Package can be downloaded from the public git repo as:</p>
+<pre class="literalblock">
+   $ git clone 
+   $ python setup.py install
+</pre>
+    <p>or installed automatically via pypi:</p>
+<pre class="literalblock">
+   $ pip install fixreal
+</pre>
+  <h1 class="heading">USAGE</h1>
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span><span class="py-keyword">import</span> fixreal
+<span class="py-prompt">&gt;&gt;&gt; </span>fixreal.real2fix(-0.9921875, fixreal.get_conv(8, 7, True))
+<span class="py-output">129.0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.real2fix(-3.96875, fixreal.get_conv(8, 5, True))
+<span class="py-output">129.0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.real2fix(-127, fixreal.get_conv(8, 0, True))
+<span class="py-output">129.0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.real2fix(1.0078125, fixreal.get_conv(8, 7, False))
+<span class="py-output">129.0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.real2fix(4.03125, fixreal.get_conv(8, 5, False))
+<span class="py-output">129.0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.real2fix(129, fixreal.get_conv(8, 0, False))
+<span class="py-output">129.0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.fix2real(0b10000001, fixreal.get_conv(8, 7, True))
+<span class="py-output">-0.9921875</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.fix2real(0b10000001, fixreal.get_conv(8, 5, True))
+<span class="py-output">-3.96875</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.fix2real(0b10000001, fixreal.get_conv(8, 0, True))
+<span class="py-output">-127.0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.fix2real(0b10000001, fixreal.get_conv(8, 7, False))
+<span class="py-output">1.0078125</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.fix2real(0b10000001, fixreal.get_conv(8, 5, False))
+<span class="py-output">4.03125</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>fixreal.fix2real(0b10000001, fixreal.get_conv(8, 0, False))
+<span class="py-output">129.0</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>conv = fixreal.conv_from_name(<span class="py-string">&quot;fix_8_7&quot;</span>)</pre>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        Marco Bartolini
+      </p>
+      <p><strong>Contact:</strong>
+        marco.bartolini@gmail.com
+      </p>
+      <p><strong>Version:</strong>
+        0.8
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="fixreal.ConversionError-class.html" class="summary-name">ConversionError</a><br />
+      Raised when conversion types are conflicting
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="fixreal-module.html#get_conv" class="summary-sig-name">get_conv</a>(<span class="summary-sig-arg">bits</span>,
+        <span class="summary-sig-arg">bin_point</span>,
+        <span class="summary-sig-arg">signed</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">scaling</span>=<span class="summary-sig-default">1.0</span>)</span><br />
+      Creates a <i>conversion structure</i> implented as a dictionary 
+      containing all parameters needed to switch between number 
+      representations.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fixreal-pysrc.html#get_conv">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="fixreal-module.html#conv_from_name" class="summary-sig-name">conv_from_name</a>(<span class="summary-sig-arg">name</span>)</span><br />
+      Understand simulink syntax for fixed types and returns the proper 
+      conversion structure.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fixreal-pysrc.html#conv_from_name">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="fixreal-module.html#_get_unsigned_params" class="summary-sig-name" onclick="show_private();">_get_unsigned_params</a>(<span class="summary-sig-arg">conv</span>)</span><br />
+      Fill the sign-dependent params of the conv structure in case of 
+      unsigned conversion</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fixreal-pysrc.html#_get_unsigned_params">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="fixreal-module.html#_get_signed_params" class="summary-sig-name" onclick="show_private();">_get_signed_params</a>(<span class="summary-sig-arg">conv</span>)</span><br />
+      Fill the sign-dependent params of the conv structure in case of 
+      signed conversion</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fixreal-pysrc.html#_get_signed_params">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="fixreal-module.html#fix2real" class="summary-sig-name">fix2real</a>(<span class="summary-sig-arg">uval</span>,
+        <span class="summary-sig-arg">conv</span>)</span><br />
+      Convert a 32 bit unsigned int register into the value it represents 
+      in its Fixed arithmetic form.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fixreal-pysrc.html#fix2real">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="fixreal-module.html#bin2real" class="summary-sig-name">bin2real</a>(<span class="summary-sig-arg">binary_string</span>,
+        <span class="summary-sig-arg">conv</span>,
+        <span class="summary-sig-arg">endianness</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">@</code><code class="variable-quote">'</code></span>)</span><br />
+      Converts a binary string representing a number to its Fixed 
+      arithmetic representation</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fixreal-pysrc.html#bin2real">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="fixreal-module.html#stream2real" class="summary-sig-name">stream2real</a>(<span class="summary-sig-arg">binary_stream</span>,
+        <span class="summary-sig-arg">conv</span>,
+        <span class="summary-sig-arg">endianness</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">@</code><code class="variable-quote">'</code></span>)</span><br />
+      Converts a binary stream into a sequence of real numbers</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fixreal-pysrc.html#stream2real">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="fixreal-module.html#real2fix" class="summary-sig-name">real2fix</a>(<span class="summary-sig-arg">real</span>,
+        <span class="summary-sig-arg">conv</span>)</span><br />
+      Convert a real number to its fixed representation so that it can be 
+      written into a 32 bit register.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="fixreal-pysrc.html#real2fix">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="get_conv"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_conv</span>(<span class="sig-arg">bits</span>,
+        <span class="sig-arg">bin_point</span>,
+        <span class="sig-arg">signed</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">scaling</span>=<span class="sig-default">1.0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="fixreal-pysrc.html#get_conv">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Creates a <i>conversion structure</i> implented as a dictionary 
+  containing all parameters needed to switch between number 
+  representations.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>bits</code></strong> - the number of bits</li>
+        <li><strong class="pname"><code>bin_point</code></strong> - binary point position</li>
+        <li><strong class="pname"><code>signed</code></strong> - True if Fix, False if UFix</li>
+        <li><strong class="pname"><code>scaling</code></strong> - optional scaling to be applied after the conversion</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a conversion structure that can be applied in both directions of 
+          conversion for the given specs.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="conv_from_name"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">conv_from_name</span>(<span class="sig-arg">name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="fixreal-pysrc.html#conv_from_name">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Understand simulink syntax for fixed types and returns the proper 
+  conversion structure.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> - the type name as in simulin (i.e. UFix_8_7 ... )</li>
+    </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="fixreal.ConversionError-class.html">ConversionError</a></strong></code> - When cannot decode the string</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_get_unsigned_params"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_get_unsigned_params</span>(<span class="sig-arg">conv</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="fixreal-pysrc.html#_get_unsigned_params">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Fill the sign-dependent params of the conv structure in case of 
+  unsigned conversion</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>conv</code></strong> - the structure to be filled</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_get_signed_params"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_get_signed_params</span>(<span class="sig-arg">conv</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="fixreal-pysrc.html#_get_signed_params">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Fill the sign-dependent params of the conv structure in case of signed
+  conversion</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>conv</code></strong> - the structure to be filled</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="fix2real"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">fix2real</span>(<span class="sig-arg">uval</span>,
+        <span class="sig-arg">conv</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="fixreal-pysrc.html#fix2real">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert a 32 bit unsigned int register into the value it represents in
+  its Fixed arithmetic form.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>uval</code></strong> - the numeric unsigned value in simulink representation</li>
+        <li><strong class="pname"><code>conv</code></strong> - conv structure with conversion specs as generated by 
+          <i>get_conv</i></li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the real number represented by the Fixed arithmetic defined in 
+          conv</dd>
+  </dl>
+<div class="fields">      <p><strong>To Do:</strong>
+        Better error detection and management of unsupported operations and 
+    arguments
+      </p>
+</div></td></tr></table>
+</div>
+<a name="bin2real"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">bin2real</span>(<span class="sig-arg">binary_string</span>,
+        <span class="sig-arg">conv</span>,
+        <span class="sig-arg">endianness</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">@</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="fixreal-pysrc.html#bin2real">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Converts a binary string representing a number to its Fixed arithmetic
+  representation</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>binary_string</code></strong> - binary number in simulink representation</li>
+        <li><strong class="pname"><code>conv</code></strong> - conv structure containing conversion specs</li>
+        <li><strong class="pname"><code>endianness</code></strong> - optionally specify bytes endianness for unpacking</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the real number represented</dd>
+  </dl>
+<div class="fields">      <p><strong>Attention:</strong>
+        The length of the binary string must match with the data type 
+        defined in the conv structure, otherwise proper erros will be 
+        thrown by <b>struct</b> module.
+      </p>
+</div></td></tr></table>
+</div>
+<a name="stream2real"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">stream2real</span>(<span class="sig-arg">binary_stream</span>,
+        <span class="sig-arg">conv</span>,
+        <span class="sig-arg">endianness</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">@</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="fixreal-pysrc.html#stream2real">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Converts a binary stream into a sequence of real numbers</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>binary_stream</code></strong> - a binary string representing a sequence of numbers</li>
+        <li><strong class="pname"><code>conv</code></strong> - conv structure containing conversion specs</li>
+        <li><strong class="pname"><code>endianness</code></strong> - optionally specify bytes endianness for unpacking</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the list of real data represented</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="real2fix"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">real2fix</span>(<span class="sig-arg">real</span>,
+        <span class="sig-arg">conv</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="fixreal-pysrc.html#real2fix">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Convert a real number to its fixed representation so that it can be 
+  written into a 32 bit register.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>real</code></strong> - the real number to be converted into fixed representation</li>
+        <li><strong class="pname"><code>conv</code></strong> - conv structre with conversion specs</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the fixed representation of the real number</dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'>ConverisonError</strong></code> - if conv structre can't handle the real number.</li>
+    </ul></dd>
+  </dl>
+<div class="fields">      <p><strong>To Do:</strong>
+        Better error detection and management of unsupported operations and 
+    arguments
+      </p>
+</div></td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            ><a class="navbar" target="_top" href="http://www.med.ira.inaf.it/~mbartolini/fixreal/index.html">fixreal</a></th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Mon Jan 23 09:42:00 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
